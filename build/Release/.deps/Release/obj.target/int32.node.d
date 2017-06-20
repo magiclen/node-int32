@@ -1,1 +1,0 @@
-cmd_Release/obj.target/int32.node := g++ -shared -pthread -rdynamic -m64  -Wl,-soname=int32.node -o Release/obj.target/int32.node -Wl,--start-group Release/obj.target/int32/src/int32.o -Wl,--end-group 
