@@ -257,21 +257,10 @@ napi_value GetValue(napi_env env, napi_callback_info info){
 
 napi_value constructor(napi_env env, napi_callback_info info){
         napi_value me;
-        napi_create_object(env, &me);
-
-        napi_property_descriptor allDesc[] = {
-                {"add", 0, AddMethod, 0, 0, 0, napi_default, 0},
-                {"subtract", 0, SubtractMethod, 0, 0, 0, napi_default, 0},
-                {"multiply", 0, MultiplyMethod, 0, 0, 0, napi_default, 0},
-                {"divide", 0, DivideMethod, 0, 0, 0, napi_default, 0},
-                {"inspect", 0, GetValue, 0, 0, 0, napi_default, 0},
-                {"getValue", 0, GetValue, 0, 0, 0, napi_default, 0},
-        };
-        napi_define_properties(env, me, 6, allDesc);
 
         size_t argsLength = 1;
         napi_value args[1];
-        napi_get_cb_info(env, info, &argsLength, args, 0, 0);
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
 
         int32_t initialValue;
         if(argsLength == 0) {
@@ -296,7 +285,16 @@ void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
         };
         napi_define_properties(env, exports, 5, allDesc);
         napi_value cons;
-        napi_define_class(env, "Int32", constructor, 0, 0, 0, &cons);
+
+        napi_property_descriptor int32AllDesc[] = {
+                {"add", 0, AddMethod, 0, 0, 0, napi_default, 0},
+                {"subtract", 0, SubtractMethod, 0, 0, 0, napi_default, 0},
+                {"multiply", 0, MultiplyMethod, 0, 0, 0, napi_default, 0},
+                {"divide", 0, DivideMethod, 0, 0, 0, napi_default, 0},
+                {"inspect", 0, GetValue, 0, 0, 0, napi_default, 0},
+                {"getValue", 0, GetValue, 0, 0, 0, napi_default, 0},
+        };
+        napi_define_class(env, "Int32", constructor, 0, 6, int32AllDesc, &cons);
         napi_set_named_property(env, exports, "Int32", cons);
 }
 
