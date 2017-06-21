@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 napi_value createFalse(napi_env env){
-    napi_value result;
-    napi_create_number(env, 0, &result);
-    napi_coerce_to_bool(env, result, &result);
-    return result;
+        napi_value result;
+        napi_create_number(env, 0, &result);
+        napi_coerce_to_bool(env, result, &result);
+        return result;
 }
 
 napi_value add(napi_env env, napi_callback_info info){
@@ -119,25 +119,25 @@ napi_value operate(napi_env env, napi_callback_info info){
                         napi_get_value_string_utf8(env, operation, NULL, 0, &aLength);
                         char a[aLength + 1];
                         napi_get_value_string_utf8(env, operation, a, aLength + 1, 0);
-                        if(aLength < 2){
-                            return createFalse(env);
+                        if(aLength < 2) {
+                                return createFalse(env);
                         }
                         char operator = a[0];
                         int32_t value = (int32_t)atof(a + 1);
-                        switch(operator){
-                            case '+':
+                        switch(operator) {
+                        case '+':
                                 number += value;
                                 break;
-                            case '-':
+                        case '-':
                                 number -= value;
                                 break;
-                            case '*':
+                        case '*':
                                 number *= value;
                                 break;
-                            case '/':
+                        case '/':
                                 number /= value;
                                 break;
-                            default:
+                        default:
                                 return createFalse(env);
                         }
                 }
@@ -145,6 +145,145 @@ napi_value operate(napi_env env, napi_callback_info info){
         }
 
         return result;
+}
+
+napi_value AddMethod(napi_env env, napi_callback_info info){
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_value me;
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+        if(argsLength == 0) {
+                return me;
+        }
+
+        napi_value value;
+        napi_get_named_property(env, me, "_v", &value);
+
+        int32_t a, b;
+        napi_get_value_int32(env, value, &a);
+        napi_get_value_int32(env, args[0], &b);
+
+        double newValue = (a + b);
+
+        napi_value result;
+        napi_create_number(env, newValue, &result);
+        napi_set_named_property(env, me, "_v", result);
+
+        return me;
+}
+
+napi_value SubtractMethod(napi_env env, napi_callback_info info){
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_value me;
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+        if(argsLength == 0) {
+                return me;
+        }
+
+        napi_value value;
+        napi_get_named_property(env, me, "_v", &value);
+
+        int32_t a, b;
+        napi_get_value_int32(env, value, &a);
+        napi_get_value_int32(env, args[0], &b);
+
+        double newValue = (a - b);
+
+        napi_value result;
+        napi_create_number(env, newValue, &result);
+        napi_set_named_property(env, me, "_v", result);
+
+        return me;
+}
+
+napi_value MultiplyMethod(napi_env env, napi_callback_info info){
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_value me;
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+        if(argsLength == 0) {
+                return me;
+        }
+
+        napi_value value;
+        napi_get_named_property(env, me, "_v", &value);
+
+        int32_t a, b;
+        napi_get_value_int32(env, value, &a);
+        napi_get_value_int32(env, args[0], &b);
+
+        double newValue = (a * b);
+
+        napi_value result;
+        napi_create_number(env, newValue, &result);
+        napi_set_named_property(env, me, "_v", result);
+
+        return me;
+}
+
+napi_value DivideMethod(napi_env env, napi_callback_info info){
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_value me;
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+        if(argsLength == 0) {
+                return me;
+        }
+
+        napi_value value;
+        napi_get_named_property(env, me, "_v", &value);
+
+        int32_t a, b;
+        napi_get_value_int32(env, value, &a);
+        napi_get_value_int32(env, args[0], &b);
+
+        double newValue = (a / b);
+
+        napi_value result;
+        napi_create_number(env, newValue, &result);
+        napi_set_named_property(env, me, "_v", result);
+
+        return me;
+}
+
+napi_value GetValue(napi_env env, napi_callback_info info){
+        napi_value me;
+        napi_get_cb_info(env, info, 0, 0, &me, 0);
+        napi_value value;
+        napi_get_named_property(env, me, "_v", &value);
+        return value;
+}
+
+napi_value constructor(napi_env env, napi_callback_info info){
+        napi_value me;
+        napi_create_object(env, &me);
+
+        napi_property_descriptor allDesc[] = {
+                {"add", 0, AddMethod, 0, 0, 0, napi_default, 0},
+                {"subtract", 0, SubtractMethod, 0, 0, 0, napi_default, 0},
+                {"multiply", 0, MultiplyMethod, 0, 0, 0, napi_default, 0},
+                {"divide", 0, DivideMethod, 0, 0, 0, napi_default, 0},
+                {"inspect", 0, GetValue, 0, 0, 0, napi_default, 0},
+                {"getValue", 0, GetValue, 0, 0, 0, napi_default, 0},
+        };
+        napi_define_properties(env, me, 6, allDesc);
+
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_get_cb_info(env, info, &argsLength, args, 0, 0);
+
+        int32_t initialValue;
+        if(argsLength == 0) {
+                initialValue = 0;
+        }else{
+                napi_get_value_int32(env, args[0], &initialValue);
+        }
+
+        napi_value value;
+        napi_create_number(env, initialValue, &value);
+        napi_set_named_property(env, me, "_v", value);
+        return me;
 }
 
 void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
@@ -156,6 +295,9 @@ void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
                 {"operate", 0, operate, 0, 0, 0, napi_default, 0}
         };
         napi_define_properties(env, exports, 5, allDesc);
+        napi_value cons;
+        napi_define_class(env, "Int32", constructor, 0, 0, 0, &cons);
+        napi_set_named_property(env, exports, "Int32", cons);
 }
 
 NAPI_MODULE(int32, Init);
