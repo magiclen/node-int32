@@ -158,6 +158,48 @@ napi_value shiftRightUnsigned(napi_env env, napi_callback_info info){
         return result;
 }
 
+napi_value rotateRight(napi_env env, napi_callback_info info){
+        size_t argsLength = 2;
+        napi_value args[2];
+        napi_get_cb_info(env, info, &argsLength, args, 0, 0);
+
+        napi_value result;
+        if(argsLength == 0) {
+                napi_create_number(env, 0, &result);
+        }else if(argsLength == 1) {
+                return args[0];
+        }else{
+                int32_t a, b;
+                napi_get_value_int32(env, args[0], &a);
+                napi_get_value_int32(env, args[1], &b);
+                double d = (int32_t)((a >> b) | (a << (32 - b)));
+                napi_create_number(env, d, &result);
+        }
+
+        return result;
+}
+
+napi_value rotateLeft(napi_env env, napi_callback_info info){
+        size_t argsLength = 2;
+        napi_value args[2];
+        napi_get_cb_info(env, info, &argsLength, args, 0, 0);
+
+        napi_value result;
+        if(argsLength == 0) {
+                napi_create_number(env, 0, &result);
+        }else if(argsLength == 1) {
+                return args[0];
+        }else{
+                int32_t a, b;
+                napi_get_value_int32(env, args[0], &a);
+                napi_get_value_int32(env, args[1], &b);
+                double d = (int32_t)((a << b) | ((uint32_t)a >> (32 - b)));
+                napi_create_number(env, d, &result);
+        }
+
+        return result;
+}
+
 napi_value operate(napi_env env, napi_callback_info info){
         size_t argsLength = 2;
         napi_value args[2];
@@ -204,6 +246,14 @@ napi_value operate(napi_env env, napi_callback_info info){
                                 value = (int32_t)atof(a + 1);
                                 number /= value;
                                 break;
+                        case ')':
+                                value = (int32_t)atof(a + 1);
+                                number = (int32_t)((number >> value) | (number << (32 - value)));
+                                break;
+                        case '(':
+                                value = (int32_t)atof(a + 1);
+                                number = (int32_t)((number << value) | ((uint32_t)number >> (32 - value)));
+                                break;
                         case '>':
                                 if(aLength > 2 && a[1] == '>') {
                                         if(aLength > 3 && a[2] == '>') {
@@ -247,7 +297,7 @@ napi_value AddMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -257,7 +307,7 @@ napi_value AddMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -272,7 +322,7 @@ napi_value SubtractMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -282,7 +332,7 @@ napi_value SubtractMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -297,7 +347,7 @@ napi_value MultiplyMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -307,7 +357,7 @@ napi_value MultiplyMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -322,7 +372,7 @@ napi_value DivideMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -332,7 +382,7 @@ napi_value DivideMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -347,7 +397,7 @@ napi_value ShiftLeftMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -357,7 +407,7 @@ napi_value ShiftLeftMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -372,7 +422,7 @@ napi_value ShiftRightMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -382,7 +432,7 @@ napi_value ShiftRightMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -397,7 +447,7 @@ napi_value ShiftRightUnsignedMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a, b;
         napi_get_value_int32(env, value, &a);
@@ -407,7 +457,57 @@ napi_value ShiftRightUnsignedMethod(napi_env env, napi_callback_info info){
 
         napi_value result;
         napi_create_number(env, newValue, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
+
+        return me;
+}
+
+napi_value RotateRightMethod(napi_env env, napi_callback_info info){
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_value me;
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+        if(argsLength == 0) {
+                return me;
+        }
+
+        napi_value value;
+        napi_get_element(env, me, 0, &value);
+
+        int32_t a, b;
+        napi_get_value_int32(env, value, &a);
+        napi_get_value_int32(env, args[0], &b);
+
+        double newValue = (int32_t)((a >> b) | (a << (32 - b)));
+
+        napi_value result;
+        napi_create_number(env, newValue, &result);
+        napi_set_element(env, me, 0, result);
+
+        return me;
+}
+
+napi_value RotateLeftMethod(napi_env env, napi_callback_info info){
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_value me;
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+        if(argsLength == 0) {
+                return me;
+        }
+
+        napi_value value;
+        napi_get_element(env, me, 0, &value);
+
+        int32_t a, b;
+        napi_get_value_int32(env, value, &a);
+        napi_get_value_int32(env, args[0], &b);
+
+        double newValue = (int32_t)((a << b) | ((uint32_t)a >> (32 - b)));
+
+        napi_value result;
+        napi_create_number(env, newValue, &result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -422,14 +522,14 @@ napi_value SetMethod(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
 
         int32_t a;
         napi_get_value_int32(env, args[0], &a);
 
         napi_value result;
         napi_create_number(env, a, &result);
-        napi_set_named_property(env, me, "_v", result);
+        napi_set_element(env, me, 0, result);
 
         return me;
 }
@@ -438,7 +538,7 @@ napi_value GetValue(napi_env env, napi_callback_info info){
         napi_value me;
         napi_get_cb_info(env, info, 0, 0, &me, 0);
         napi_value value;
-        napi_get_named_property(env, me, "_v", &value);
+        napi_get_element(env, me, 0, &value);
         return value;
 }
 
@@ -458,7 +558,7 @@ napi_value constructor(napi_env env, napi_callback_info info){
 
         napi_value value;
         napi_create_number(env, initialValue, &value);
-        napi_set_named_property(env, me, "_v", value);
+        napi_set_element(env, me, 0, value);
         return me;
 }
 
@@ -471,9 +571,11 @@ void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
                 {"shiftLeft", 0, shiftLeft, 0, 0, 0, napi_default, 0},
                 {"shiftRight", 0, shiftRight, 0, 0, 0, napi_default, 0},
                 {"shiftRightUnsigned", 0, shiftRightUnsigned, 0, 0, 0, napi_default, 0},
+                {"rotateRight", 0, rotateRight, 0, 0, 0, napi_default, 0},
+                {"rotateLeft", 0, rotateLeft, 0, 0, 0, napi_default, 0},
                 {"operate", 0, operate, 0, 0, 0, napi_default, 0}
         };
-        napi_define_properties(env, exports, 8, allDesc);
+        napi_define_properties(env, exports, 10, allDesc);
         napi_value cons;
 
         napi_property_descriptor int32AllDesc[] = {
@@ -485,10 +587,12 @@ void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
                 {"shiftLeft", 0, ShiftLeftMethod, 0, 0, 0, napi_default, 0},
                 {"shiftRight", 0, ShiftRightMethod, 0, 0, 0, napi_default, 0},
                 {"shiftRightUnsigned", 0, ShiftRightUnsignedMethod, 0, 0, 0, napi_default, 0},
+                {"rotateRight", 0, RotateRightMethod, 0, 0, 0, napi_default, 0},
+                {"rotateLeft", 0, RotateLeftMethod, 0, 0, 0, napi_default, 0},
                 {"inspect", 0, GetValue, 0, 0, 0, napi_default, 0},
                 {"getValue", 0, GetValue, 0, 0, 0, napi_default, 0},
         };
-        napi_define_class(env, "Int32", constructor, 0, 10, int32AllDesc, &cons);
+        napi_define_class(env, "Int32", constructor, 0, 12, int32AllDesc, &cons);
         napi_set_named_property(env, exports, "Int32", cons);
 }
 
