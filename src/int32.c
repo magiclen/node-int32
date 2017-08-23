@@ -3,7 +3,7 @@
 
 napi_value createFalse(napi_env env){
         napi_value result;
-        napi_create_number(env, 0, &result);
+        napi_create_int32(env, 0, &result);
         napi_coerce_to_bool(env, result, &result);
         return result;
 }
@@ -15,16 +15,16 @@ napi_value add(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (a + b);
+                int32_t d = (a + b);
 
-                napi_create_number(env, d, &result);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -37,16 +37,16 @@ napi_value subtract(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (a - b);
+                int32_t d = (a - b);
 
-                napi_create_number(env, d, &result);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -59,16 +59,16 @@ napi_value multiply(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (a * b);
+                int32_t d = (a * b);
 
-                napi_create_number(env, d, &result);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -81,15 +81,15 @@ napi_value divide(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (a / b);
-                napi_create_number(env, d, &result);
+                int32_t d = (a / b);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -102,15 +102,15 @@ napi_value shiftLeft(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (a << b);
-                napi_create_number(env, d, &result);
+                int32_t d = (a << b);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -123,15 +123,15 @@ napi_value shiftRight(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (a >> b);
-                napi_create_number(env, d, &result);
+                int32_t d = (a >> b);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -144,15 +144,15 @@ napi_value shiftRightUnsigned(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (int32_t)((uint32_t)a >> b);
-                napi_create_number(env, d, &result);
+                int32_t d = (int32_t)((uint32_t)a >> b);
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -165,15 +165,15 @@ napi_value rotateRight(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (int32_t)((a >> b) | (a << (32 - b)));
-                napi_create_number(env, d, &result);
+                int32_t d = (int32_t)((a >> b) | (a << (32 - b)));
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -186,15 +186,15 @@ napi_value rotateLeft(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
                 int32_t a, b;
                 napi_get_value_int32(env, args[0], &a);
                 napi_get_value_int32(env, args[1], &b);
-                double d = (int32_t)((a << b) | ((uint32_t)a >> (32 - b)));
-                napi_create_number(env, d, &result);
+                int32_t d = (int32_t)((a << b) | ((uint32_t)a >> (32 - b)));
+                napi_create_int32(env, d, &result);
         }
 
         return result;
@@ -207,7 +207,7 @@ napi_value operate(napi_env env, napi_callback_info info){
 
         napi_value result;
         if(argsLength == 0) {
-                napi_create_number(env, 0, &result);
+                napi_create_int32(env, 0, &result);
         }else if(argsLength == 1) {
                 return args[0];
         }else{
@@ -281,7 +281,7 @@ napi_value operate(napi_env env, napi_callback_info info){
                                 return createFalse(env);
                         }
                 }
-                napi_create_number(env, number, &result);
+                napi_create_int32(env, number, &result);
         }
 
         return result;
@@ -303,10 +303,10 @@ napi_value AddMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (a + b);
+        int32_t newValue = (a + b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -328,10 +328,10 @@ napi_value SubtractMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (a - b);
+        int32_t newValue = (a - b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -353,10 +353,10 @@ napi_value MultiplyMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (a * b);
+        int32_t newValue = (a * b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -378,10 +378,10 @@ napi_value DivideMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (a / b);
+        int32_t newValue = (a / b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -403,10 +403,10 @@ napi_value ShiftLeftMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (a << b);
+        int32_t newValue = (a << b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -428,10 +428,10 @@ napi_value ShiftRightMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (a >> b);
+        int32_t newValue = (a >> b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -453,10 +453,10 @@ napi_value ShiftRightUnsignedMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (int32_t)((uint32_t)a >> b);
+        int32_t newValue = (int32_t)((uint32_t)a >> b);
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -478,10 +478,10 @@ napi_value RotateRightMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (int32_t)((a >> b) | (a << (32 - b)));
+        int32_t newValue = (int32_t)((a >> b) | (a << (32 - b)));
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -503,10 +503,10 @@ napi_value RotateLeftMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, value, &a);
         napi_get_value_int32(env, args[0], &b);
 
-        double newValue = (int32_t)((a << b) | ((uint32_t)a >> (32 - b)));
+        int32_t newValue = (int32_t)((a << b) | ((uint32_t)a >> (32 - b)));
 
         napi_value result;
-        napi_create_number(env, newValue, &result);
+        napi_create_int32(env, newValue, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -528,7 +528,7 @@ napi_value SetMethod(napi_env env, napi_callback_info info){
         napi_get_value_int32(env, args[0], &a);
 
         napi_value result;
-        napi_create_number(env, a, &result);
+        napi_create_int32(env, a, &result);
         napi_set_element(env, me, 0, result);
 
         return me;
@@ -557,7 +557,7 @@ napi_value constructor(napi_env env, napi_callback_info info){
         }
 
         napi_value value;
-        napi_create_number(env, initialValue, &value);
+        napi_create_int32(env, initialValue, &value);
         napi_set_element(env, me, 0, value);
         return me;
 }
