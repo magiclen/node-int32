@@ -562,7 +562,7 @@ napi_value constructor(napi_env env, napi_callback_info info){
         return me;
 }
 
-void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
+napi_value Init (napi_env env, napi_value exports) {
         napi_property_descriptor allDesc[] = {
                 {"add", 0, add, 0, 0, 0, napi_default, 0},
                 {"subtract", 0, subtract, 0, 0, 0, napi_default, 0},
@@ -592,8 +592,9 @@ void Init (napi_env env, napi_value exports, napi_value module, void* priv) {
                 {"inspect", 0, GetValue, 0, 0, 0, napi_default, 0},
                 {"getValue", 0, GetValue, 0, 0, 0, napi_default, 0},
         };
-        napi_define_class(env, "Int32", constructor, 0, 12, int32AllDesc, &cons);
+        napi_define_class(env, "Int32", -1, constructor, 0, 12, int32AllDesc, &cons);
         napi_set_named_property(env, exports, "Int32", cons);
+        return exports;
 }
 
 NAPI_MODULE(int32, Init);
