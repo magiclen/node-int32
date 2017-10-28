@@ -1,11 +1,29 @@
 #include <node_api.h>
 #include <stdlib.h>
 
+napi_ref FalseRef, Int32Ref;
+
+// TODO -----Creators-----
+
 napi_value createFalse(napi_env env){
         napi_value result;
-        napi_create_int32(env, 0, &result);
-        napi_coerce_to_bool(env, result, &result);
+        napi_get_reference_value(env, FalseRef, &result);
         return result;
+}
+
+// TODO -----Static-----
+
+napi_value from(napi_env env, napi_callback_info info){
+        napi_value me, newMe;
+        size_t argsLength = 1;
+        napi_value args[1];
+        napi_get_cb_info(env, info, &argsLength, args, &me, 0);
+
+        napi_value Int32;
+        napi_get_reference_value(env, Int32Ref, &Int32);
+
+        napi_new_instance(env, Int32, argsLength, args, &newMe);
+        return newMe;
 }
 
 napi_value add(napi_env env, napi_callback_info info){
@@ -289,6 +307,8 @@ napi_value operate(napi_env env, napi_callback_info info){
         return result;
 }
 
+// TODO -----Object-----
+
 napi_value AddMethod(napi_env env, napi_callback_info info){
         size_t argsLength = 1;
         napi_value args[1];
@@ -566,6 +586,7 @@ napi_value constructor(napi_env env, napi_callback_info info){
 
 napi_value Init (napi_env env, napi_value exports) {
         napi_property_descriptor allDesc[] = {
+                {"from", 0, from, 0, 0, 0, napi_default, 0},
                 {"add", 0, add, 0, 0, 0, napi_default, 0},
                 {"subtract", 0, subtract, 0, 0, 0, napi_default, 0},
                 {"multiply", 0, multiply, 0, 0, 0, napi_default, 0},
@@ -577,10 +598,10 @@ napi_value Init (napi_env env, napi_value exports) {
                 {"rotateLeft", 0, rotateLeft, 0, 0, 0, napi_default, 0},
                 {"operate", 0, operate, 0, 0, 0, napi_default, 0}
         };
-        napi_define_properties(env, exports, 10, allDesc);
-        napi_value cons;
+        napi_define_properties(env, exports, 11, allDesc);
 
         napi_property_descriptor int32AllDesc[] = {
+                {"from", 0, from, 0, 0, 0, napi_static, 0},
                 {"set", 0, SetMethod, 0, 0, 0, napi_default, 0},
                 {"add", 0, AddMethod, 0, 0, 0, napi_default, 0},
                 {"subtract", 0, SubtractMethod, 0, 0, 0, napi_default, 0},
@@ -594,8 +615,15 @@ napi_value Init (napi_env env, napi_value exports) {
                 {"inspect", 0, GetValue, 0, 0, 0, napi_default, 0},
                 {"getValue", 0, GetValue, 0, 0, 0, napi_default, 0},
         };
-        napi_define_class(env, "Int32", -1, constructor, 0, 12, int32AllDesc, &cons);
+        napi_value cons;
+        napi_define_class(env, "Int32", -1, constructor, 0, 13, int32AllDesc, &cons);
         napi_set_named_property(env, exports, "Int32", cons);
+        napi_create_reference(env, cons, 1, &Int32Ref);
+
+        napi_value bFalse;
+        napi_create_int32(env, 0, &bFalse);
+        napi_coerce_to_bool(env, bFalse, &bFalse);
+        napi_create_reference(env, bFalse, 1, &FalseRef);
         return exports;
 }
 
