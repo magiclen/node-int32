@@ -1,6 +1,6 @@
 {
   "name": "int32",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Use N-API to compute 32 bits integers. Preserve the property of overflowing.",
   "main": "index.js",
   "scripts": {
