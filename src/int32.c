@@ -1,13 +1,13 @@
 #include <node_api.h>
 #include <stdlib.h>
 
-napi_ref FalseRef, Int32Ref;
+napi_ref Int32Ref;
 
 // TODO -----Creators-----
 
 napi_value createFalse(napi_env env){
         napi_value result;
-        napi_get_reference_value(env, FalseRef, &result);
+        napi_get_boolean(env, false, &result);
         return result;
 }
 
@@ -618,11 +618,6 @@ napi_value Init (napi_env env, napi_value exports) {
         napi_define_class(env, "Int32", -1, constructor, 0, 13, int32AllDesc, &cons);
         napi_set_named_property(env, exports, "Int32", cons);
         napi_create_reference(env, cons, 1, &Int32Ref);
-
-        napi_value bFalse;
-        napi_create_int32(env, 0, &bFalse);
-        napi_coerce_to_bool(env, bFalse, &bFalse);
-        napi_create_reference(env, bFalse, 1, &FalseRef);
         return exports;
 }
 
