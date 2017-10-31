@@ -113,7 +113,7 @@ var i32 = new Int32(1);
 or
 
 ```javascript
-var i32 = int32.Int32(1);
+var i32 = int32.from(1);
 ```
 
 or
