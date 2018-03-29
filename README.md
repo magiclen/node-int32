@@ -7,8 +7,6 @@ This module uses N-API to compute 32 bits integers and preserves the property of
 
 In JavaScript, the length of type `number` is 64 bits. A `number` can be used to represent an IEEE-754 double-precision number or a 53-bit integer. If you need compute something and integers in your computation are overflowing or underflowing, this kind of algorithms is hard to be implemented by using the type `number` in Node.js.
 
-NOTICE: N-API is a new experimental feature in Node.js 8.
-
 ## Installation
 
 Run `npm i` or `npm install` to install.
