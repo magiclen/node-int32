@@ -242,8 +242,8 @@ napi_value operate(napi_env env, napi_callback_info info){
                         napi_get_value_string_utf8(env, operation, NULL, 0, &aLength);
                         char* a = (char*)malloc(sizeof(char) * (aLength + 1));
                         napi_get_value_string_utf8(env, operation, a, aLength + 1, 0);
-                        free(a);
                         if(aLength < 2) {
+                                free(a);
                                 return createFalse(env);
                         }
                         char operator = a[0];
@@ -297,8 +297,10 @@ napi_value operate(napi_env env, napi_callback_info info){
                                 }
                                 break;
                         default:
+                                free(a);
                                 return createFalse(env);
                         }
+                        free(a);
                 }
                 napi_create_int32(env, number, &result);
         }
