@@ -1,0 +1,24 @@
+[package]
+name = "node-int32"
+version = "3.0.0"
+authors = ["Magic Len <len@magiclen.org>"]
+edition = "2018"
+repository = "https://github.com/magiclen/node-int32"
+homepage = "https://magiclen.org/node-js-int32/"
+keywords = ["node.js", "int32", "overflow"]
+categories = []
+description = "Use Rust to compute 32-bit signed integers and wrap around at the boundary."
+readme = "../README.md"
+license = "MIT"
+include = ["src/**/*", "build.rs", "Cargo.toml", "LICENSE"]
+publish = false
+
+[lib]
+name = "functions"
+crate-type = ["cdylib"]
+
+[dependencies]
+neon = "0.3"
+
+[build-dependencies]
+neon-build = "0.3"

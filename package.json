@@ -1,35 +1,42 @@
 {
   "name": "int32",
-  "version": "2.5.5",
-  "description": "Use N-API to compute 32 bits integers. Preserve the property of overflowing.",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha --reporter spec"
+  "version": "3.0.0",
+  "author": "Magic Len <len@magiclen.org> (https://magiclen.org)",
+  "engines": {
+    "node": ">= 8.9.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/magiclen/node-int32.git"
   },
+  "homepage": "https://github.com/magiclen/node-int32",
   "keywords": [
     "int32",
     "overflow",
     "underflow",
     "nodejs"
   ],
-  "engines": {
-    "node": ">=8.6.0"
-  },
-  "author": "Magic Len <len@magiclen.org> (https://magiclen.org)",
   "bugs": {
     "url": "https://github.com/magiclen/node-int32/issues"
   },
-  "homepage": "https://github.com/magiclen/node-int32#readme",
+  "description": "Use Rust to compute 32-bit signed integers and wrap around at the boundary.",
   "license": "MIT",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "native"
+  ],
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "install": "neon build --release",
+    "test": "mocha --reporter spec"
+  },
   "dependencies": {
-    "bindings": "^1.3.0"
+    "neon-cli": "^0.4.0"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.0.5"
+    "chai": "^4.2.0",
+    "mocha": "^8.0.0"
   }
 }
