@@ -9,6 +9,10 @@
     "type": "git",
     "url": "git+https://github.com/magiclen/node-int32.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "homepage": "https://github.com/magiclen/node-int32",
   "keywords": [
     "int32",
