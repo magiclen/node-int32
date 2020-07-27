@@ -1,6 +1,6 @@
 {
   "name": "int32",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Magic Len <len@magiclen.org> (https://magiclen.org)",
   "engines": {
     "node": ">= 8.9.0"
