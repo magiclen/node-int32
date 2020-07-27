@@ -35,43 +35,43 @@ import int32 from 'int32';
 
 ## Usage
 
-### Add
+#### add
 
 ```javascript
 let n = int32.add(1, 2); // 3
 ```
 
-### Subtract
+#### subtract
 
 ```javascript
 let n = int32.subtract(1, 2); // -1
 ```
 
-### multiply
+#### multiply
 
 ```javascript
 let n = int32.subtract(2, 6); // 12
 ```
 
-### divide
+#### divide
 
 ```javascript
 let n = int32.divide(6, 4); // 1
 ```
 
-### pow
+#### pow
 
 ```javascript
 let n = int32.pow(2, 3); // 8
 ```
 
-### shiftLeft
+#### shiftLeft
 
 ```javascript
 let n = int32.shiftLeft(5, 2); // 20
 ```
 
-### shiftRight
+#### shiftRight
 
 ```javascript
 let n1 = int32.shiftRight(5, 2); // 1
@@ -79,22 +79,22 @@ let n2 = int32.shiftRight(6, 1); // 3
 let n3 = int32.shiftRight(-5, 1); // -3
 ```
 
-### shiftRightUnsigned
+#### shiftRightUnsigned
 
 ```javascript
 let n = int32.shiftRightUnsigned(-5, 1); // 2147483645
 ```
 
-### rotateRight
-
-```javascript
-let n = int32.rotateRight(0b00000000000000000000000100000001, 8); // 0b00000001000000000000000000000001
-```
-
-### rotateLeft
+#### rotateLeft
 
 ```javascript
 let n = int32.rotateLeft(0b10000000000000000000000100000000, 1); // 0b00000000000000000000001000000001
+```
+
+#### rotateRight
+
+```javascript
+let n = int32.rotateRight(0b00000000000000000000000100000001, 8); // 0b00000001000000000000000000000001
 ```
 
 ## License
