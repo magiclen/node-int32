@@ -1,6 +1,6 @@
 [package]
 name = "node-int32"
-version = "3.0.0"
+version = "3.0.2"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2018"
 repository = "https://github.com/magiclen/node-int32"
@@ -16,6 +16,9 @@ publish = false
 [lib]
 name = "functions"
 crate-type = ["cdylib"]
+
+[profile.release]
+lto = true
 
 [dependencies]
 neon = "0.3"
