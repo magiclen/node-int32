@@ -1,4 +1,4 @@
-const addon = require("./native/index.node");
+const addon = require("../native/index.node");
 
 const {
     add, subtract, multiply, divide, pow, shiftLeft, shiftRight, shiftRightUnsigned, rotateLeft, rotateRight,
