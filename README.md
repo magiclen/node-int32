@@ -1,37 +1,7 @@
 Int32
 =================================
 
-## Introduction
-
-This module uses Rust to compute 32-bit signed integers and wrap around at the boundary.
-
-In JavaScript, the size of type `number` is 64 bits. A `number` can be used to represent an IEEE-754 double-precision number or a 53-bit integer. If you need to compute something and integers in your computation are overflowing/underflowing, this kind of algorithms is hard to be implemented by using the type `number` in Node.js.
-
-## Installation
-
-Setting up your Rust development environment: [rustup](https://rustup.rs/)
-
-Run `npm i` or `npm install` to install.
-
-```bash
-npm install int32
-```
-
-If you want to save this module to package.json, add the `--save` option.
-
-```bash
-npm install int32 --save
-```
-
-## Initialization
-
-```javascript
-const int32 = require('int32');
-```
-
-```javascript
-import int32 from 'int32';
-```
+[![CI](https://github.com/magiclen/node-int32/actions/workflows/ci.yml/badge.svg)](https://github.com/magiclen/node-int32/actions/workflows/ci.yml)
 
 ## Usage
 
