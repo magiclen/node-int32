@@ -1,6 +1,6 @@
 {
   "name": "int32",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Use Rust to compute 32-bit signed integers and wrap around at the boundary.",
   "main": "index.node",
   "typings": "index.d.ts",
@@ -10,6 +10,9 @@
     "install": "npm run build",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
+  },
+  "engines": {
+    "node": ">=12"
   },
   "repository": {
     "type": "git",
