@@ -1,26 +1,19 @@
 {
   "name": "int32",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Use Rust to compute 32-bit signed integers and wrap around at the boundary.",
-  "main": "src/lib.js",
+  "main": "index.node",
   "typings": "index.d.ts",
   "scripts": {
     "test": "mocha tests/**/*.test.js",
-    "build": "neon build",
-    "install": "neon build --release",
+    "build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
+    "install": "npm run build",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
-  },
-  "engines": {
-    "node": ">=12"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/magiclen/node-int32.git"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
-    "access": "public"
   },
   "keywords": [
     "int32",
@@ -35,10 +28,10 @@
   },
   "homepage": "https://magiclen.org/node-js-int32/",
   "dependencies": {
-    "neon-cli": "^0.8.2"
+    "cargo-cp-artifact": "^0.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "eslint": "^7.27.0",
     "mocha": "^8.4.0"
   }

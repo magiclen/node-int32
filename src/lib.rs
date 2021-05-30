@@ -10,10 +10,10 @@ macro_rules! fetch_args {
 
                 match $ctx.argument_opt(1) {
                     Some(arg2) => {
-                        let arg1 = arg1.value() as $t1;
+                        let arg1 = arg1.value(&mut $ctx) as $t1;
 
                         let arg2: Handle<JsNumber> = arg2.downcast_or_throw(&mut $ctx)?;
-                        let arg2 = arg2.value() as $t2;
+                        let arg2 = arg2.value(&mut $ctx) as $t2;
 
                         (arg1, arg2)
                     }
@@ -118,17 +118,18 @@ fn rotate_right(mut ctx: FunctionContext) -> JsResult<JsNumber> {
     u32_to_js_i32(ctx, c)
 }
 
-neon::register_module!(mut m, {
-    m.export_function("add", add)?;
-    m.export_function("subtract", subtract)?;
-    m.export_function("multiply", multiply)?;
-    m.export_function("divide", divide)?;
-    m.export_function("pow", pow)?;
-    m.export_function("shiftLeft", shift_left)?;
-    m.export_function("shiftRight", shift_right)?;
-    m.export_function("shiftRightUnsigned", shift_right_unsigned)?;
-    m.export_function("rotateLeft", rotate_left)?;
-    m.export_function("rotateRight", rotate_right)?;
+#[neon::main]
+fn main(mut cx: ModuleContext) -> NeonResult<()> {
+    cx.export_function("add", add)?;
+    cx.export_function("subtract", subtract)?;
+    cx.export_function("multiply", multiply)?;
+    cx.export_function("divide", divide)?;
+    cx.export_function("pow", pow)?;
+    cx.export_function("shiftLeft", shift_left)?;
+    cx.export_function("shiftRight", shift_right)?;
+    cx.export_function("shiftRightUnsigned", shift_right_unsigned)?;
+    cx.export_function("rotateLeft", rotate_left)?;
+    cx.export_function("rotateRight", rotate_right)?;
 
     Ok(())
-});
+}
