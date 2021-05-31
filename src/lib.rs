@@ -3,28 +3,28 @@ extern crate neon;
 use neon::prelude::*;
 
 macro_rules! fetch_args {
-    ($ctx:expr, $t1:ty, $t2:ty) => {
-        match $ctx.argument_opt(0) {
+    ($cx:expr, $t1:ty, $t2:ty) => {
+        match $cx.argument_opt(0) {
             Some(arg1) => {
-                let arg1 = arg1.downcast_or_throw::<JsNumber, _>(&mut $ctx)?;
+                let arg1 = arg1.downcast_or_throw::<JsNumber, _>(&mut $cx)?;
 
-                match $ctx.argument_opt(1) {
+                match $cx.argument_opt(1) {
                     Some(arg2) => {
-                        let arg1 = arg1.value(&mut $ctx) as $t1;
+                        let arg1 = arg1.value(&mut $cx) as $t1;
 
-                        let arg2 = arg2.downcast_or_throw::<JsNumber, _>(&mut $ctx)?;
-                        let arg2 = arg2.value(&mut $ctx) as $t2;
+                        let arg2 = arg2.downcast_or_throw::<JsNumber, _>(&mut $cx)?;
+                        let arg2 = arg2.value(&mut $cx) as $t2;
 
                         (arg1, arg2)
                     }
                     None => return Ok(arg1),
                 }
             }
-            None => return Ok(JsNumber::new(&mut $ctx, 0)),
+            None => return Ok(JsNumber::new(&mut $cx, 0)),
         }
     };
-    ($ctx:expr, $t:ty) => {
-        fetch_args!($ctx, $t, $t);
+    ($cx:expr, $t:ty) => {
+        fetch_args!($cx, $t, $t);
     };
 }
 
@@ -34,88 +34,88 @@ fn u32_to_i32(u: u32) -> i32 {
 }
 
 #[inline]
-fn u32_to_js_i32(mut ctx: FunctionContext, u: u32) -> JsResult<JsNumber> {
-    Ok(JsNumber::new(&mut ctx, u32_to_i32(u)))
+fn u32_to_js_i32(mut cx: FunctionContext, u: u32) -> JsResult<JsNumber> {
+    Ok(JsNumber::new(&mut cx, u32_to_i32(u)))
 }
 
-fn add(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, i32);
+fn add(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, i32);
 
     let sum = arg1.wrapping_add(arg2);
 
-    Ok(JsNumber::new(&mut ctx, sum))
+    Ok(JsNumber::new(&mut cx, sum))
 }
 
-fn subtract(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, i32);
+fn subtract(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, i32);
 
     let difference = arg1.wrapping_sub(arg2);
 
-    Ok(JsNumber::new(&mut ctx, difference))
+    Ok(JsNumber::new(&mut cx, difference))
 }
 
-fn multiply(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, i32);
+fn multiply(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, i32);
 
     let product = arg1.wrapping_mul(arg2);
 
-    Ok(JsNumber::new(&mut ctx, product))
+    Ok(JsNumber::new(&mut cx, product))
 }
 
-fn divide(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, i32);
+fn divide(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, i32);
 
     let quotient = arg1.wrapping_mul(arg2);
 
-    Ok(JsNumber::new(&mut ctx, quotient))
+    Ok(JsNumber::new(&mut cx, quotient))
 }
 
-fn pow(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, i32, u32);
+fn pow(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, i32, u32);
 
     let product = arg1.wrapping_pow(arg2);
 
-    Ok(JsNumber::new(&mut ctx, product))
+    Ok(JsNumber::new(&mut cx, product))
 }
 
-fn shift_left(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, u32);
+fn shift_left(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, u32);
 
     let c = arg1.wrapping_shl(arg2);
 
-    u32_to_js_i32(ctx, c)
+    u32_to_js_i32(cx, c)
 }
 
-fn shift_right(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, i32, u32);
+fn shift_right(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, i32, u32);
 
     let c = arg1.wrapping_shr(arg2);
 
-    Ok(JsNumber::new(&mut ctx, c))
+    Ok(JsNumber::new(&mut cx, c))
 }
 
-fn shift_right_unsigned(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, u32);
+fn shift_right_unsigned(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, u32);
 
     let c = arg1.wrapping_shr(arg2);
 
-    u32_to_js_i32(ctx, c)
+    u32_to_js_i32(cx, c)
 }
 
-fn rotate_left(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, u32);
+fn rotate_left(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, u32);
 
     let c = arg1.rotate_left(arg2);
 
-    u32_to_js_i32(ctx, c)
+    u32_to_js_i32(cx, c)
 }
 
-fn rotate_right(mut ctx: FunctionContext) -> JsResult<JsNumber> {
-    let (arg1, arg2) = fetch_args!(ctx, u32);
+fn rotate_right(mut cx: FunctionContext) -> JsResult<JsNumber> {
+    let (arg1, arg2) = fetch_args!(cx, u32);
 
     let c = arg1.rotate_right(arg2);
 
-    u32_to_js_i32(ctx, c)
+    u32_to_js_i32(cx, c)
 }
 
 #[neon::main]
