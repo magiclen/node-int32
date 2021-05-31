@@ -6,13 +6,13 @@ macro_rules! fetch_args {
     ($ctx:expr, $t1:ty, $t2:ty) => {
         match $ctx.argument_opt(0) {
             Some(arg1) => {
-                let arg1: Handle<JsNumber> = arg1.downcast_or_throw(&mut $ctx)?;
+                let arg1 = arg1.downcast_or_throw::<JsNumber, _>(&mut $ctx)?;
 
                 match $ctx.argument_opt(1) {
                     Some(arg2) => {
                         let arg1 = arg1.value(&mut $ctx) as $t1;
 
-                        let arg2: Handle<JsNumber> = arg2.downcast_or_throw(&mut $ctx)?;
+                        let arg2 = arg2.downcast_or_throw::<JsNumber, _>(&mut $ctx)?;
                         let arg2 = arg2.value(&mut $ctx) as $t2;
 
                         (arg1, arg2)
