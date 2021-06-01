@@ -3,6 +3,8 @@ Int32
 
 [![CI](https://github.com/magiclen/node-int32/actions/workflows/ci.yml/badge.svg)](https://github.com/magiclen/node-int32/actions/workflows/ci.yml)
 
+Use Rust to compute 32-bit signed integers and wrap around at the boundary.
+
 ## Usage
 
 #### add
