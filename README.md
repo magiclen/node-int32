@@ -5,6 +5,8 @@ Int32
 
 Use Rust to compute 32-bit signed integers and wrap around at the boundary.
 
+You need to set up the Rust development environment: [rustup](https://rustup.rs/)
+
 ## Usage
 
 #### add
