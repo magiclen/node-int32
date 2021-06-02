@@ -8,7 +8,7 @@
     "test": "mocha tests/**/*.test.js",
     "native-build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
     "build": "npm run native-build",
-    "install": "npm run build",
+    "install": "npm run native-build",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
   },
