@@ -6,7 +6,8 @@
   "typings": "index.d.ts",
   "scripts": {
     "test": "mocha tests/**/*.test.js",
-    "build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
+    "native-build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
+    "build": "npm run native-build",
     "install": "npm run build",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
