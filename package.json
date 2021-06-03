@@ -1,6 +1,6 @@
 {
   "name": "int32",
-  "version": "3.0.16",
+  "version": "3.0.17",
   "description": "Use Rust to compute 32-bit signed integers and wrap around at the boundary.",
   "main": "src/lib.js",
   "typings": "index.d.ts",

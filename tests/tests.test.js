@@ -5,7 +5,7 @@ const int32 = require("..");
 
 describe("Add", function () {
     it("should add step-by-step and would overflow", function () {
-        var n = 0;
+        let n = 0;
         for (let i = 0;i < 10000;++i) {
             n = int32.add(n, 98766455);
         }
@@ -15,12 +15,12 @@ describe("Add", function () {
 
 describe("Rotate", function () {
     it("should rotate right", function () {
-        var n = 0b00000000000000000000000100000001;
+        let n = 0b00000000000000000000000100000001;
         n = int32.rotateRight(n, 8);
         expect(n).to.equal(0b00000001000000000000000000000001);
     });
     it("should rotate left", function () {
-        var n = 0b10000000000000000000000100000000;
+        let n = 0b10000000000000000000000100000000;
         n = int32.rotateLeft(n, 1);
         expect(n).to.equal(0b00000000000000000000001000000001);
     });
