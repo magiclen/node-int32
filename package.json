@@ -1,14 +1,13 @@
 {
   "name": "int32",
-  "version": "3.0.19",
+  "version": "3.0.20",
   "description": "Use Rust to compute 32-bit signed integers and wrap around at the boundary.",
   "main": "src/lib.js",
   "typings": "index.d.ts",
   "scripts": {
     "test": "mocha tests/**/*.test.js",
-    "native-build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
-    "build": "npm run native-build",
-    "install": "npm run native-build",
+    "build": "cargo-cp-artifact -nc index.node -- cargo build --release --message-format=json-render-diagnostics",
+    "install": "npm run build",
     "prepare": "npm run build",
     "prepublishOnly": "npm run test"
   },
@@ -32,11 +31,11 @@
   },
   "homepage": "https://magiclen.org/node-js-int32/",
   "dependencies": {
-    "cargo-cp-artifact": "^0.1"
+    "cargo-cp-artifact": "^0.1.6"
   },
   "devDependencies": {
-    "chai": "^4.3.4",
-    "eslint": "^7.31.0",
-    "mocha": "^9.0.3"
+    "chai": "^4.3.6",
+    "eslint": "^8.15.0",
+    "mocha": "^10.0.0"
   }
 }
