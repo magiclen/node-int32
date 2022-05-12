@@ -1,5 +1,3 @@
-extern crate neon;
-
 use neon::prelude::*;
 
 fn to_i32<'a>(
