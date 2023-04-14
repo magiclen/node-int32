@@ -1,8 +1,9 @@
 [package]
 name = "int32"
-version = "3.0.20"
+version = "4.0.0"
 authors = ["Magic Len <len@magiclen.org>"]
 edition = "2021"
+rust-version = "1.57"
 repository = "https://github.com/magiclen/node-int32"
 homepage = "https://magiclen.org/node-js-int32/"
 keywords = ["node.js", "int32", "overflow", "underflow"]
@@ -18,7 +19,9 @@ crate-type = ["cdylib"]
 lto = true
 codegen-units = 1
 
-[dependencies.neon]
-version = "0.10"
-default-features = false
-features = ["napi-6"]
+[dependencies]
+napi = "2"
+napi-derive = "2"
+
+[build-dependencies]
+napi-build = "2"

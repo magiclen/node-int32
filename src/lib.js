@@ -1,1 +1,1 @@
-module.exports = require("../index.node");
+export * from "../index.cjs";
