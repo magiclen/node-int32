@@ -84,7 +84,7 @@ pub fn shift_right_unsigned(env: Env, a: i32, b: i32) -> Result<i32> {
     Ok((a as u32).wrapping_shr(b as u32) as i32)
 }
 
-/// Shifts the bits to the right by a specified amount n, wrapping the truncated bits to the beginning of the resulting 32-bit integer.
+/// Shifts the bits to the left by a specified amount n, wrapping the truncated bits to the beginning of the resulting 32-bit integer.
 ///
 /// `b` must not be smaller than zero
 #[napi(js_name = "rotateLeft")]
