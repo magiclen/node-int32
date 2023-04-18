@@ -1,35 +1,43 @@
 use napi::bindgen_prelude::*;
 use napi_derive::napi;
 
+/// Computes `a + b`, wrapping around at the boundary of an 32-bit integer.
 #[napi]
 pub fn add(a: i32, b: i32) -> i32 {
     a.wrapping_add(b)
 }
 
+/// Computes `a - b`, wrapping around at the boundary of an 32-bit integer.
 #[napi]
 pub fn subtract(a: i32, b: i32) -> i32 {
     a.wrapping_sub(b)
 }
 
+/// Computes `a * b`, wrapping around at the boundary of an 32-bit integer.
 #[napi]
 pub fn multiply(a: i32, b: i32) -> i32 {
     a.wrapping_mul(b)
 }
 
+/// Computes `a / b`, wrapping around at the boundary of an 32-bit integer.
 #[napi]
 pub fn divide(a: i32, b: i32) -> i32 {
     a.wrapping_div(b)
 }
 
+/// Computes `a ^ b`, wrapping around at the boundary of an 32-bit integer.
 #[napi]
 pub fn pow(a: i32, b: i32) -> Result<i32> {
     if b < 0 {
-        return Err(Error::from_reason("the exponent of an integer number must not be smaller than zero"));
+        return Err(Error::from_reason(
+            "the exponent of an integer number must not be smaller than zero",
+        ));
     }
 
     Ok(a.wrapping_pow(b as u32))
 }
 
+/// Computes `a << b`, wrapping around at the boundary of an 32-bit integer.
 #[napi(js_name = "shiftLeft")]
 pub fn shift_left(a: i32, b: i32) -> Result<i32> {
     if b < 0 {
@@ -39,6 +47,7 @@ pub fn shift_left(a: i32, b: i32) -> Result<i32> {
     Ok(a.wrapping_shl(b as u32))
 }
 
+/// Computes `a >> b`, wrapping around at the boundary of an 32-bit integer.
 #[napi(js_name = "shiftRight")]
 pub fn shift_right(a: i32, b: i32) -> Result<i32> {
     if b < 0 {
@@ -48,6 +57,7 @@ pub fn shift_right(a: i32, b: i32) -> Result<i32> {
     Ok(a.wrapping_shr(b as u32))
 }
 
+/// Computes `a >>> b`, wrapping around at the boundary of an 32-bit integer.
 #[napi(js_name = "shiftRightUnsigned")]
 pub fn shift_right_unsigned(a: i32, b: i32) -> Result<i32> {
     if b < 0 {
@@ -57,6 +67,7 @@ pub fn shift_right_unsigned(a: i32, b: i32) -> Result<i32> {
     Ok((a as u32).wrapping_shr(b as u32) as i32)
 }
 
+/// Shifts the bits to the right by a specified amount n, wrapping the truncated bits to the beginning of the resulting 32-bit integer.
 #[napi(js_name = "rotateLeft")]
 pub fn rotate_left(a: i32, b: i32) -> Result<i32> {
     if b < 0 {
@@ -66,6 +77,7 @@ pub fn rotate_left(a: i32, b: i32) -> Result<i32> {
     Ok(a.rotate_left(b as u32))
 }
 
+/// Shifts the bits to the right by a specified amount n, wrapping the truncated bits to the beginning of the resulting 32-bit integer.
 #[napi(js_name = "rotateRight")]
 pub fn rotate_right(a: i32, b: i32) -> Result<i32> {
     if b < 0 {
