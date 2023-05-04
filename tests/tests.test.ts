@@ -1,4 +1,4 @@
-import { add, rotateLeft, rotateRight } from "../src/lib";
+import { add, rotateLeft, rotateRight } from "../src/lib.js";
 
 describe("Add", function () {
     it("should add step-by-step and would overflow", function () {
